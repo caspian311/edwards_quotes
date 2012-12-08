@@ -3,7 +3,7 @@ require "twitter"
 def _read_file(filename)
    contents = ""
    File.open(filename, "r") do |file|
-      contents = file.read
+      contents = file.read.strip
    end
    return contents
 end
