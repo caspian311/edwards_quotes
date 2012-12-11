@@ -8,6 +8,6 @@ class Poster
    end
 
    def post
-      @twitter_client.update @quote_provider.get_random_quote    
+      @twitter_client.update @quote_provider.get_next_quote
    end
 end

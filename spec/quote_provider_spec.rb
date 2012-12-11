@@ -1,17 +1,19 @@
 require "spec_helper"
 
 describe QuoteProvider do
-   test_object = QuoteProvider.new()
 
    describe "#get_random_quote" do
       it "should provide a sampled quote" do
-         quote = mock("expected quote")
-         all_quotes = mock("all quotes")
+         quote1 = mock("quote 1")
+         quote2 = mock("quote 2")
+         quote3 = mock("quote 3")
+         Quotes.should_receive(:load_all).and_return([quote1, quote2, quote3])
 
-         Quotes.should_receive(:load_all).times.and_return(all_quotes)
-         all_quotes.should_receive(:sample).times.and_return(quote)
-
-         test_object.get_random_quote.should be quote
+         test_object = QuoteProvider.new
+         test_object.get_next_quote.should be quote1
+         test_object.get_next_quote.should be quote2
+         QuoteProvider.new.get_next_quote.should be quote3
+         QuoteProvider.new.get_next_quote.should be quote1
       end
    end
 end
