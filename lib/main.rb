@@ -2,8 +2,7 @@ require "poster"
 
 module Quoter
    class Main
-      DEFAULT_TIME_INTERVAL = 1
-#DEFAULT_TIME_INTERVAL = 24 * 60 * 60
+      DEFAULT_TIME_INTERVAL = 24 * 60 * 60
       
       def initialize(poster=Poster.new, time_interval=DEFAULT_TIME_INTERVAL)
          @poster = poster
