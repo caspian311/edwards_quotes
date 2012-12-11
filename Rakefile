@@ -11,7 +11,9 @@ task :import do
 end
 
 task :run do
-   Quoter::Main.new.run
+   app = Quoter::Main.new
+   app.run
+   app.wait_for_it
 end
 
 task :default => :run

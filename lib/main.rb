@@ -12,22 +12,27 @@ module Quoter
       end
 
       def run
-         Quoter::log.info "starting up"
+         Quoter::log.info "starting up..."
+         $DEBUG = true
          @thread = Thread.new do
-            begin
-               Quoter::log.info "starting thread"
-               while @still_running do
-                  Quoter::log.info "posting..."
-                  @poster.post
-                  Quoter::log.info "waiting..."
-                  sleep @time_interval
-               end
-            rescue
-               Quoter::log.error "Error: #{$!}"
+            while @still_running do
+               _safely_quote
+               sleep @time_interval
             end
          end
+      end
 
-         Quoter::log.info "done"
+      def _safely_quote
+         begin
+            Quoter::log.info "posting"
+            @poster.post
+         rescue
+            Quoter::log.error "Error: #{$!}"
+         end
+      end
+
+      def wait_for_it
+         @thread.join
       end
 
       def stop
